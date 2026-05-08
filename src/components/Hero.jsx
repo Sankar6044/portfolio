@@ -98,17 +98,33 @@ export default function Hero() {
           </motion.div>
         </motion.div>
 
-        {/* Right side - Abstract 3D / Floating elements */}
+        {/* Main glowing orb with Photo */}
         <motion.div 
           initial={{ opacity: 0, scale: 0.8 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease: "easeOut" }}
           className="relative hidden lg:flex justify-center items-center h-[500px]"
         >
-          {/* Main glowing orb */}
-          <div className="relative w-72 h-72 rounded-full border border-white/10 glass flex items-center justify-center animate-blob shadow-[0_0_40px_rgba(176,38,255,0.2)]">
-            <div className="w-48 h-48 rounded-full bg-gradient-to-tr from-neonBlue to-neonPurple opacity-20 blur-xl animate-pulse"></div>
-            <Brain className="absolute text-white/50 w-32 h-32" strokeWidth={1} />
+          {/* Glowing Photo Container */}
+          <div className="relative w-72 h-72 rounded-full border-4 border-white/10 flex items-center justify-center shadow-[0_0_40px_rgba(0,240,255,0.4)] hover:shadow-[0_0_60px_rgba(176,38,255,0.6)] transition-shadow duration-500 z-10 group overflow-hidden">
+            {/* Fallback glow if image fails or before it loads */}
+            <div className="absolute inset-0 bg-gradient-to-tr from-neonBlue/20 to-neonPurple/20 animate-pulse"></div>
+            
+            {/* The Photo */}
+            <img 
+              src="/src/assets/profile.jpg" 
+              alt="Sankar A" 
+              className="w-full h-full object-cover relative z-10 group-hover:scale-110 transition-transform duration-500"
+              onError={(e) => {
+                e.target.style.display = 'none';
+                e.target.nextElementSibling.style.display = 'flex';
+              }}
+            />
+            
+            {/* Fallback Icon if image is missing */}
+            <div className="hidden absolute inset-0 items-center justify-center z-0">
+               <Brain className="text-white/50 w-32 h-32" strokeWidth={1} />
+            </div>
           </div>
 
           {/* Floating tech icons */}
